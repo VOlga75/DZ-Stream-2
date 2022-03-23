@@ -1,8 +1,8 @@
 package com.company;
 
 public enum Education {
-    НАЧАЛЬНОЕ,
-    ОБЩЕЕ,
-    СРЕДНЕЕ,
-    ВЫСШЕЕ
+    ELEMENTARY,
+    SECONDARY,
+    FURTHER,
+    HIGHER
 }

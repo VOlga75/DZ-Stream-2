@@ -27,7 +27,7 @@ public class Main {
 
        System.out.println("Список призывников:");
         List<String> militari = persons.stream()
-                .filter(p -> p.getSex() == Sex.М)
+                .filter(p -> p.getSex() == Sex.MAN)
                 .filter(p -> p.getAge() >= 18 && p.getAge() <= 27)
                 .map(p -> p.getFamily() + " " + p.getAge())
                 .collect(Collectors.toList());
@@ -40,9 +40,9 @@ public class Main {
         Comparator<Person> comp = new ComparePersonName().thenComparing(new ComparePersonAge());
         //List<Person> workerM = persons.stream()
         persons.stream()
-                .filter(p -> p.getEducation() == Education.ВЫСШЕЕ)
+                .filter(p -> p.getEducation() == Education.HIGHER)
                 .distinct() // ей-то что надо?) метод equals в классе Person есть, работает...Ничего не понилаю...
-                .filter(p -> p.getAge() >= 18  && ((p.getSex() == Sex.Ж && p.getAge() <= 60 ) || (p.getSex() == Sex.М && p.getAge() <= 65 )))
+                .filter(p -> p.getAge() >= 18  && ((p.getSex() == Sex.WOMAN && p.getAge() <= 60 ) || (p.getSex() == Sex.MAN && p.getAge() <= 65 )))
                 .sorted(comp)
                 .forEach(System.out::println);
 
