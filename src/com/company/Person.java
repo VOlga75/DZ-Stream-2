@@ -38,11 +38,19 @@ class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", family='" + family + '\'' +
+                " family='" + family + '\'' +
                 ", age=" + age +
+                ", name='" + name + '\'' +
                 ", sex=" + sex +
                 ", education=" + education +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Person p = (Person) o;
+        if (this.getFamily().equals(p.getFamily()) && this.getAge() == p.getAge() && this.getSex().equals(p.getSex()))
+        {   return true;}
+        else {return false;}
     }
 }

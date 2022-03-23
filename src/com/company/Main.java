@@ -20,12 +20,12 @@ public class Main {
             );
         }
 
-        long do18 = persons.stream()
+       long do18 = persons.stream()
                 .filter(val -> val.getAge() <= 18)
                 .count();
         System.out.printf("\n В переписи населения участвовало %d несовершеннолетних", do18);
 
-      /*  System.out.println("Список призывников:");
+       System.out.println("Список призывников:");
         List<String> militari = persons.stream()
                 .filter(p -> p.getSex() == Sex.М)
                 .filter(p -> p.getAge() >= 18 && p.getAge() <= 27)
@@ -33,37 +33,18 @@ public class Main {
                 .collect(Collectors.toList());
         for (String m : militari) {
             System.out.println(m);
-        }*/
-
-        System.out.println("Трудоспособное население:");
-        List<Person> workerM = persons.stream()
-                .filter(p -> p.getEducation() == Education.ВЫСШЕЕ)
-                .filter(p -> p.getSex() == Sex.М)
-                .filter(p -> p.getAge() >= 18 && p.getAge() <= 65)
-                .collect(Collectors.toList());
-        System.out.printf(" мужчин: %s", workerM.size());
-        List<Person> workerF = persons.stream()
-                .filter(p -> p.getEducation() == Education.ВЫСШЕЕ)
-                .filter(p -> p.getSex() == Sex.Ж)
-                .filter(p -> p.getAge() >= 18 && p.getAge() <= 60)
-                .collect(Collectors.toList());
-        System.out.printf(" женщин: %s", workerM.size());
-
-        workerM.addAll(workerF);
-        System.out.printf(" всего: %s", workerM.size());
-
-
-        List<String> worker = workerM.stream()
-                .map(p -> p.getFamily() + " " + p.getName() + " " + p.getEducation() + " " + p.getSex() + " " + p.getAge())
-                //.distinct()
-                .sorted(Comparator.naturalOrder())
-                //.forEach(System.out::print); почему ошибка, если раскомментить эту строчку...я же делаю map  в стринг...
-                .collect(Collectors.toList());
-
-
-        for (String w : worker) {
-            System.out.println(w);
         }
+
+
+        System.out.println("\nТрудоспособное население:");
+        Comparator<Person> comp = new ComparePersonName().thenComparing(new ComparePersonAge());
+        //List<Person> workerM = persons.stream()
+        persons.stream()
+                .filter(p -> p.getEducation() == Education.ВЫСШЕЕ)
+                .distinct() // ей-то что надо?) метод equals в классе Person есть, работает...Ничего не понилаю...
+                .filter(p -> p.getAge() >= 18  && ((p.getSex() == Sex.Ж && p.getAge() <= 60 ) || (p.getSex() == Sex.М && p.getAge() <= 65 )))
+                .sorted(comp)
+                .forEach(System.out::println);
 
     }
 }
