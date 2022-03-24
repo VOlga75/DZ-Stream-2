@@ -37,13 +37,13 @@ public class Main {
 
 
         System.out.println("\nТрудоспособное население:");
-        Comparator<Person> comp = new ComparePersonName().thenComparing(new ComparePersonAge());
+        //Comparator<Person> comp = new ComparePersonName().thenComparing(new ComparePersonAge());
         //List<Person> workerM = persons.stream()
         persons.stream()
                 .filter(p -> p.getEducation() == Education.HIGHER)
-                .distinct() // ей-то что надо?) метод equals в классе Person есть, работает...Ничего не понилаю...
+               // .distinct() // ей-то что надо?) метод equals в классе Person есть, работает...Ничего не понилаю...
                 .filter(p -> p.getAge() >= 18  && ((p.getSex() == Sex.WOMAN && p.getAge() <= 60 ) || (p.getSex() == Sex.MAN && p.getAge() <= 65 )))
-                .sorted(comp)
+                .sorted(Comparator.comparing(Person::getFamily))
                 .forEach(System.out::println);
 
     }
